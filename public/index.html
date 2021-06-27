@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🔥</text></svg>">
-    <title>r3fire</title>
+    <title>r3fire - Watch Anime Together</title>
     <script defer src="/__/firebase/8.6.8/firebase-app.js"></script>
     <script defer src="/__/firebase/8.6.8/firebase-database.js"></script>
     <script defer src="/__/firebase/8.6.8/firebase-analytics.js"></script>
@@ -36,8 +36,30 @@
         firebase.database().ref('/r3play/live').on('value', x => {
             data = x.val()
             start = Math.floor((Date.now() - data.start) / 1000) % data.length
+            $("#live").attr("src", `https://www.youtube.com/embed/${data.id}?autoplay=1&loop=1&showinfo=0&controls=0&rel=0&modestbranding=1&autohide=1&start=${start}`)
+            console.log(data)
+        });
+    }
 
-            $("#live").attr("src", `https://www.youtube.com/embed/${data.id}?autoplay=1&loop=1&start=${start}`)
+    function load_anime() {
+        firebase.database().ref('/r3play/anime').on('value', x => {
+            data = x.val()
+            length = 0
+            for (d of data) {
+                d.start = length
+                length += d.length
+            }
+
+            start = Math.floor(Date.now() / 1000) % length
+            console.log(start, length)
+            for (d of data) {
+                if (start < d.start + d.length) {
+                    start -= d.start
+                    $("#live").attr("src", `https://www.youtube.com/embed/${d.id}?autoplay=1&loop=1&showinfo=0&controls=0&rel=0&modestbranding=1&autohide=1&start=${start}`)
+                    break
+                }
+            }
+
             console.log(data)
         });
     }
@@ -48,7 +70,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        load_live()
+        // load_live()
+        load_anime()
         log()
     });
 </script>
