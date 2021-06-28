@@ -6,8 +6,11 @@
       <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🔥</text></svg>">
     <title>r3fire - Watch Anime Together</title>
     <script defer src="/__/firebase/8.6.8/firebase-app.js"></script>
+
     <script defer src="/__/firebase/8.6.8/firebase-database.js"></script>
     <script defer src="/__/firebase/8.6.8/firebase-analytics.js"></script>
+    <script defer src="/__/firebase/8.6.8/firebase-performance.js"></script>
+
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
     <style>
@@ -66,6 +69,7 @@
     }
 
     function log() {
+        firebase.performance()
         firebase.analytics()
         firebase.analytics().logEvent('hello')
     }
