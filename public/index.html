@@ -44,6 +44,7 @@
     function load_anime() {
         firebase.database().ref('/r3play/anime').on('value', x => {
             data = x.val()
+            data = data.filter(d => !d.remove)
             length = 0
             for (d of data) {
                 d.start = length

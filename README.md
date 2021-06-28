@@ -15,6 +15,7 @@ firebase init functions
 ### Run local
 ```
 firebase emulators:start
+firebase serve
 ```
 ### Deploy
 Preview and clone
