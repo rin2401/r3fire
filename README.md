@@ -26,5 +26,6 @@ firebase hosting:clone r3fire:test r3fire:live
 Deploy to live
 ```
 firebase deploy --only hosting
+firebase deploy --only "hosting,functions"
 ```
 
